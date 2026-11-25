@@ -1,0 +1,73 @@
+<Window x:Class="CqNl.Wpf.Views.ApproveWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Duyệt CQ" Width="1360" Height="900" WindowStartupLocation="CenterOwner" WindowState="Maximized">
+  <Grid>
+  <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="520"/></Grid.ColumnDefinitions>
+  <DockPanel Margin="12,12,0,12">
+    <TextBlock DockPanel.Dock="Top" x:Name="PageStatus" TextWrapping="Wrap" Foreground="{StaticResource Muted}" Margin="0,0,0,6"
+               Text="Đang dựng ảnh trang CQ bằng Excel…"/>
+    <Border BorderBrush="{StaticResource Line}" BorderThickness="1" Background="#E9EDF2">
+      <ScrollViewer x:Name="PageScroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid x:Name="PageHost" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="8">
+          <Image x:Name="PageImg" Stretch="None"/>
+          <Canvas x:Name="OverCanvas"/>
+        </Grid>
+      </ScrollViewer>
+    </Border>
+  </DockPanel>
+  <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+  <StackPanel Margin="18">
+    <TextBlock x:Name="Head" Style="{StaticResource H1}"/>
+    <Grid>
+      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="14"/><ColumnDefinition/></Grid.ColumnDefinitions>
+      <StackPanel><TextBlock Text="Người duyệt (Approved)" Style="{StaticResource Label}"/><ComboBox x:Name="ApproverBox" DisplayMemberPath="Name"/></StackPanel>
+      <StackPanel Grid.Column="2"><TextBlock Text="Người kiểm tra (Checker)" Style="{StaticResource Label}"/><ComboBox x:Name="CheckerBox" DisplayMemberPath="Name"/></StackPanel>
+    </Grid>
+    <Button x:Name="AddSignBtn" Content="+ Thêm chữ ký / con dấu từ ảnh…" Click="AddSignature_Click" HorizontalAlignment="Left" Margin="0,8,0,0"
+            ToolTip="Đưa chữ ký / con dấu từ file ảnh hoặc ảnh đã copy (Ctrl+V) vào app — quản trị"/>
+    <TextBlock Margin="0,14,0,4" FontWeight="SemiBold" TextWrapping="Wrap" Text="Vị trí dấu và chữ ký: KÉO THẢ trực tiếp trên trang bên trái (kéo góc dưới-phải để đổi cỡ), hoặc chỉnh số / dùng nút mũi tên. Đơn vị: mm so với ô neo."/>
+    <Grid x:Name="PlaceGrid">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="165"/><ColumnDefinition Width="80"/><ColumnDefinition Width="100"/><ColumnDefinition Width="100"/><ColumnDefinition Width="80"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/></Grid.RowDefinitions>
+      <TextBlock Grid.Column="1" Text="Ô neo" Style="{StaticResource Label}"/>
+      <TextBlock Grid.Column="2" Text="Lệch ngang (mm)" Style="{StaticResource Label}"/>
+      <TextBlock Grid.Column="3" Text="Lệch dọc (mm)" Style="{StaticResource Label}"/>
+      <TextBlock Grid.Column="4" Text="Rộng (mm)" Style="{StaticResource Label}"/>
+    </Grid>
+    <WrapPanel Margin="0,10,0,0">
+      <Button Content="←" Click="Nudge_Click" Tag="L" MinWidth="34"/>
+      <Button Content="→" Click="Nudge_Click" Tag="R" MinWidth="34"/>
+      <Button Content="↑" Click="Nudge_Click" Tag="U" MinWidth="34"/>
+      <Button Content="↓" Click="Nudge_Click" Tag="D" MinWidth="34"/>
+      <Button Content="Nhỏ hơn" Click="Nudge_Click" Tag="-"/>
+      <Button Content="To hơn" Click="Nudge_Click" Tag="+"/>
+      <ComboBox x:Name="StepBox" Width="80" SelectedIndex="1" Margin="6,0">
+        <ComboBoxItem Content="1 mm"/><ComboBoxItem Content="2 mm"/><ComboBoxItem Content="5 mm"/>
+      </ComboBox>
+      <Button Content="Về mặc định" Click="Reset_Click"/>
+      <Button x:Name="SaveDefaultBtn" Content="Lưu làm mặc định cho template" Click="SaveDefault_Click" Margin="0,6,6,0"/>
+    </WrapPanel>
+    <TextBlock x:Name="Status" Foreground="{StaticResource Muted}" Margin="0,10,0,0" TextWrapping="Wrap"/>
+    <Border Margin="0,14,0,0" Padding="10,8" CornerRadius="8" Background="#F6F8FB" BorderBrush="{StaticResource Line}" BorderThickness="1">
+      <StackPanel>
+        <TextBlock FontWeight="SemiBold" Text="Sửa nội dung trước khi xuất PDF (không bắt buộc)"/>
+        <TextBlock TextWrapping="Wrap" Foreground="{StaticResource Muted}" Margin="0,4,0,6"
+                   Text="1. Bấm &quot;Sửa trong Excel&quot;: app mở file CQ đã có dấu + chữ ký ở vị trí đang chọn.  2. Sửa chữ / kéo dấu, chữ ký trong Excel → bấm Lưu (Ctrl+S) → ĐÓNG Excel.  3. Bấm &quot;Xem PDF từ file đã sửa&quot; để kiểm tra, rồi &quot;Duyệt từ file đã sửa&quot; — PDF in ra đúng như file Excel."/>
+        <WrapPanel>
+          <Button x:Name="EditExcelBtn" Content="Sửa trong Excel…" Click="EditInExcel_Click"/>
+          <Button x:Name="EditedPreviewBtn" Content="Xem PDF từ file đã sửa" Click="EditedPreview_Click" IsEnabled="False"/>
+          <Button x:Name="EditedApproveBtn" Content="Duyệt từ file đã sửa" Style="{StaticResource Primary}" Click="EditedApprove_Click" IsEnabled="False"/>
+        </WrapPanel>
+        <TextBlock x:Name="EditStatus" TextWrapping="Wrap" Foreground="{StaticResource Muted}" Margin="0,4,0,0"/>
+      </StackPanel>
+    </Border>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+      <Button Content="Xem trước PDF" Click="Preview_Click"/>
+      <Button Content="Duyệt và xuất PDF" Style="{StaticResource Primary}" Click="Approve_Click"/>
+      <Button Content="Đóng" IsCancel="True" Margin="0"/>
+    </StackPanel>
+  </StackPanel>
+  </ScrollViewer>
+  </Grid>
+</Window>

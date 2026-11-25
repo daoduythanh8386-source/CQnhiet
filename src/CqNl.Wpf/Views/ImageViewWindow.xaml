@@ -1,0 +1,15 @@
+<Window x:Class="CqNl.Wpf.Views.ImageViewWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Xem ảnh" Width="1000" Height="760" WindowStartupLocation="CenterOwner">
+  <DockPanel>
+    <DockPanel DockPanel.Dock="Top" Margin="10,8">
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+        <Button x:Name="ShowNormBtn" Content="Ảnh đưa lên CQ" Click="ShowNorm_Click"/>
+        <Button x:Name="ShowOrigBtn" Content="Ảnh gốc" Click="ShowOrig_Click"/>
+        <Button Content="Lưu ảnh…" Click="Save_Click"/>
+        <Button Content="Đóng" IsCancel="True" Click="Close_Click" Margin="0"/>
+      </StackPanel>
+      <TextBlock x:Name="Info" VerticalAlignment="Center" FontWeight="SemiBold"/>
+    </DockPanel>
+    <Border Background="#2B2F36"><Image x:Name="Img" Stretch="Uniform" Margin="6"/></Border>
+  </DockPanel>
+</Window>

@@ -1,0 +1,19 @@
+<Window x:Class="CqNl.Wpf.Views.CropWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Cắt ảnh" Width="1000" Height="760" WindowStartupLocation="CenterOwner">
+  <DockPanel Margin="12">
+    <TextBlock DockPanel.Dock="Top" Margin="0,0,0,8" TextWrapping="Wrap"
+               Text="Kéo chuột trên ẢNH GỐC để chọn vùng cần giữ. Sau khi cắt, ảnh được làm sáng/làm nét theo chuẩn đã duyệt. Ảnh gốc luôn được giữ nguyên."/>
+    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+      <TextBlock x:Name="SelText" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="{StaticResource Muted}"/>
+      <Button Content="Cắt theo vùng chọn" Style="{StaticResource Primary}" Click="Ok_Click"/>
+      <Button Content="Hủy" IsCancel="True" Margin="0"/>
+    </StackPanel>
+    <Border x:Name="Host" Background="#2B2F36" ClipToBounds="True">
+      <Canvas x:Name="Cv" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Cross"
+              MouseLeftButtonDown="Cv_Down" MouseMove="Cv_Move" MouseLeftButtonUp="Cv_Up" Background="Transparent">
+        <Image x:Name="Img"/>
+        <Rectangle x:Name="Sel" Stroke="#FFD400" StrokeThickness="2" Fill="#22FFD400" Visibility="Collapsed"/>
+      </Canvas>
+    </Border>
+  </DockPanel>
+</Window>

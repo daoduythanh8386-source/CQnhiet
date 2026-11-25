@@ -1,0 +1,57 @@
+<Window x:Class="CqNl.Wpf.Views.ImportPreviewWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Xem trước import ERP" Width="980" Height="640" WindowStartupLocation="CenterOwner">
+  <DockPanel Margin="16">
+    <TextBlock DockPanel.Dock="Top" x:Name="FileText" Style="{StaticResource H1}" TextTrimming="CharacterEllipsis"/>
+    <TextBlock DockPanel.Dock="Top" x:Name="Summary" TextWrapping="Wrap" Margin="0,0,0,8"/>
+    <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Foreground="{StaticResource Muted}" Margin="0,0,0,8"
+               Text="Import chỉ thêm đơn mới và cập nhật các trường thuộc ERP. Kết quả đo, ảnh, CQ và lịch sử QC KHÔNG bị ghi đè. Đơn đã có CQ mà ERP thay đổi sẽ được gắn cảnh báo."/>
+    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+      <Button x:Name="ApplyBtn" Content="Áp dụng import" Style="{StaticResource Primary}" Click="Apply_Click"/>
+      <Button Content="Hủy" IsCancel="True" Margin="0"/>
+    </StackPanel>
+    <TabControl>
+      <TabItem x:Name="TabFiles" Header="File mới" Visibility="Collapsed">
+        <DataGrid x:Name="FilesGrid">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="File" Binding="{Binding Name}" Width="2*"/>
+            <DataGridTextColumn Header="Sửa lúc" Binding="{Binding Modified}" Width="130"/>
+            <DataGridTextColumn Header="Số dòng" Binding="{Binding Lines}" Width="80"/>
+            <DataGridTextColumn Header="Trạng thái" Binding="{Binding State}" Width="2*"/>
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+      <TabItem x:Name="TabAdd" Header="Thêm mới">
+        <DataGrid x:Name="AddGrid">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Số ĐNGC" Binding="{Binding Dngc}" Width="170"/>
+            <DataGridTextColumn Header="Dòng" Binding="{Binding LineNo}" Width="50"/>
+            <DataGridTextColumn Header="Khách hàng" Binding="{Binding Customer}" Width="2*"/>
+            <DataGridTextColumn Header="Sản phẩm" Binding="{Binding ProductName}" Width="1.5*"/>
+            <DataGridTextColumn Header="Yêu cầu" Binding="{Binding HardnessRequirementErp}" Width="80"/>
+            <DataGridTextColumn Header="SL" Binding="{Binding Quantity}" Width="60"/>
+            <DataGridTextColumn Header="KL" Binding="{Binding WeightKg}" Width="70"/>
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+      <TabItem x:Name="TabUpd" Header="Cập nhật">
+        <DataGrid x:Name="UpdGrid">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Đơn" Binding="{Binding Key}" Width="200"/>
+            <DataGridTextColumn Header="Trường" Binding="{Binding Field}" Width="170"/>
+            <DataGridTextColumn Header="Giá trị cũ" Binding="{Binding Old}" Width="*"/>
+            <DataGridTextColumn Header="Giá trị mới" Binding="{Binding New}" Width="*"/>
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+      <TabItem x:Name="TabRej" Header="Từ chối">
+        <DataGrid x:Name="RejGrid">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Dòng file" Binding="{Binding Row}" Width="80"/>
+            <DataGridTextColumn Header="Số ĐNGC" Binding="{Binding Dngc}" Width="180"/>
+            <DataGridTextColumn Header="Lý do" Binding="{Binding Reason}" Width="*"/>
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+    </TabControl>
+  </DockPanel>
+</Window>

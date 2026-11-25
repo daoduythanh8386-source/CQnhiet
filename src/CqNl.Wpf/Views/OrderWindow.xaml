@@ -1,0 +1,382 @@
+<Window x:Class="CqNl.Wpf.Views.OrderWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Chi tiết đơn" Width="1320" Height="880" MinWidth="1080" MinHeight="660"
+        WindowStartupLocation="CenterOwner" WindowState="Maximized">
+  <DockPanel>
+    <Border DockPanel.Dock="Bottom" BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0" Background="White">
+      <TextBlock x:Name="FooterText" Style="{StaticResource Footer}"/>
+    </Border>
+    <Border DockPanel.Dock="Top" Background="White" BorderBrush="{StaticResource Line}" BorderThickness="0,0,0,1" Padding="12,6">
+      <DockPanel>
+        <Button DockPanel.Dock="Left" Content="← Danh sách" IsCancel="True" Click="Close_Click" VerticalAlignment="Center" Margin="0,0,12,0" Padding="10,4"
+                ToolTip="Đóng đơn, quay lại danh sách Đơn gia công (Esc). Nhấn F5 để tải lại đơn."/>
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+          <Border x:Name="EvalBadge" CornerRadius="8" Padding="10,3" Margin="0,0,12,0" Background="#EEF2F8" VerticalAlignment="Center">
+            <TextBlock x:Name="EvalBadgeText" FontWeight="Bold" Text="—"/>
+          </Border>
+          <TextBlock x:Name="StateText" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center">
+          <TextBlock x:Name="TitleText" FontSize="17" FontWeight="SemiBold"/>
+          <TextBlock x:Name="SubText" Foreground="{StaticResource Muted}"/>
+        </StackPanel>
+      </DockPanel>
+    </Border>
+    <Border x:Name="Banner" DockPanel.Dock="Top" Background="#FFF4CE" Padding="14,6" Visibility="Collapsed">
+      <TextBlock x:Name="BannerText" TextWrapping="Wrap"/>
+    </Border>
+    <Border x:Name="NoteBanner" DockPanel.Dock="Top" Background="#FDECEA" Padding="14,6" Visibility="Collapsed" Cursor="Hand" MouseLeftButtonUp="NoteBanner_Click">
+      <TextBlock x:Name="NoteBannerText" TextWrapping="Wrap" Foreground="#8A1C14"/>
+    </Border>
+    <TabControl x:Name="Tabs" Margin="10">
+      <!-- ============ THÔNG TIN ============ -->
+      <TabItem Header="Thông tin đơn">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+          <StackPanel x:Name="InfoForm">
+            <Border x:Name="AutoBox" Visibility="Collapsed" Background="#EAF4FF" BorderBrush="#B9D7F7" BorderThickness="1" CornerRadius="10" Padding="12,8" Margin="0,0,0,10">
+              <TextBlock x:Name="AutoText" TextWrapping="Wrap" FontSize="12.5"/>
+            </Border>
+            <Grid>
+              <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/></Grid.ColumnDefinitions>
+              <!-- cột 1 -->
+              <StackPanel>
+                <TextBlock Text="Số ĐNGC (từ ERP)" Style="{StaticResource Label}"/>
+                <TextBox x:Name="DngcBox" IsReadOnly="True" Background="#F4F7FC"/>
+                <TextBlock Text="Khách hàng (in trên CQ)" Style="{StaticResource Label}"/>
+                <TextBox x:Name="CustomerBox" TextWrapping="Wrap"/>
+                <TextBlock x:Name="CustomerHint" FontSize="11" Foreground="{StaticResource Muted}" TextWrapping="Wrap" Visibility="Collapsed"/>
+                <TextBlock Text="Sản phẩm / Tên sản phẩm (từ ERP)" Style="{StaticResource Label}"/>
+                <TextBox x:Name="ProductBox" IsReadOnly="True" Background="#F4F7FC" TextWrapping="Wrap"/>
+                <TextBlock Text="Mác thép" Style="{StaticResource Label}"/>
+                <TextBox x:Name="GradeBox"/>
+                <TextBlock x:Name="GradeInfo" Foreground="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap" Margin="0,3,0,0" Visibility="Collapsed"/>
+                <TextBlock Text="Loại template CQ" Style="{StaticResource Label}"/>
+                <ComboBox x:Name="TemplateBox" DisplayMemberPath="DisplayName" SelectedValuePath="Id"/>
+              </StackPanel>
+              <!-- cột 2 -->
+              <StackPanel Grid.Column="2">
+                <TextBlock Text="Yêu cầu độ cứng (vd 56-60)" Style="{StaticResource Label}"/>
+                <TextBox x:Name="ReqBox"/>
+                <TextBlock Text="Số lượng" Style="{StaticResource Label}"/>
+                <TextBox x:Name="QtyBox" IsReadOnly="True" Background="#F4F7FC"/>
+                <TextBlock Text="Trọng lượng" Style="{StaticResource Label}"/>
+                <TextBox x:Name="WeightBox" IsReadOnly="True" Background="#F4F7FC"/>
+                <TextBlock Text="Ngày nhận (dd/MM/yyyy)" Style="{StaticResource Label}"/>
+                <TextBox x:Name="ReceivedBox" IsReadOnly="True" Background="#F4F7FC"/>
+                <TextBlock Text="Ghi chú" Style="{StaticResource Label}"/>
+                <TextBox x:Name="ErpNoteBox" IsReadOnly="True" Background="#F4F7FC" Height="64" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                <TextBlock x:Name="FlagsText" Foreground="{StaticResource WarnBrush}" TextWrapping="Wrap" Margin="0,8,0,0"/>
+              </StackPanel>
+              <!-- cột 3 -->
+              <StackPanel Grid.Column="4">
+                <Border Background="#FFF6E5" CornerRadius="8" Padding="12,9" Margin="0,18,0,0">
+                  <TextBlock TextWrapping="Wrap" Foreground="#A0522D" FontSize="12.5" Text="Mã QL / Tên chi tiết / Kích thước chưa có trong ERP — nhập tay tại đây (dữ liệu Sheet2)."/>
+                </Border>
+                <StackPanel x:Name="PartNoRow"><TextBlock Text="Mã QL (Part No)" Style="{StaticResource Label}"/><TextBox x:Name="PartNoBox"/></StackPanel>
+                <StackPanel x:Name="PartNameRow"><TextBlock Text="Tên chi tiết" Style="{StaticResource Label}"/><TextBox x:Name="PartNameBox"/></StackPanel>
+                <StackPanel x:Name="SizeRow"><TextBlock Text="Kích thước" Style="{StaticResource Label}"/><TextBox x:Name="SizeBox"/></StackPanel>
+                <TextBlock x:Name="HiddenNote" Foreground="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" Margin="0,8,0,0"/>
+                <Button x:Name="SaveInfoBtn" Content="Lưu thông tin" Style="{StaticResource Primary}" Click="SaveInfo_Click" HorizontalAlignment="Left" Margin="0,14,0,0"/>
+              </StackPanel>
+            </Grid>
+            <!-- thông số điền vào CQ: tự lấy theo mác (bảng mác thép); chỉ mở khi mác không có trong bảng mác -->
+            <Expander x:Name="ParamExpander" Margin="0,14,0,0" IsExpanded="False" Foreground="{StaticResource Muted}"
+                      Header="Thông số in trên CQ (tự lấy theo mác thép)">
+              <Grid Margin="0,6,0,0">
+                <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                <StackPanel><TextBlock Text="Dung sai" Style="{StaticResource Label}"/><TextBox x:Name="TolBox"/></StackPanel>
+                <StackPanel Grid.Column="2" x:Name="HeatRow"><TextBlock Text="Nhiệt độ tôi (cách nhau bởi ;)" Style="{StaticResource Label}"/><TextBox x:Name="HeatBox"/></StackPanel>
+                <StackPanel Grid.Column="4" x:Name="RamRow"><TextBlock Text="Ram (cách nhau bởi ;)" Style="{StaticResource Label}"/><TextBox x:Name="RamBox"/></StackPanel>
+              </Grid>
+            </Expander>
+            <!-- thông số NHẬP TAY theo template (Vinfast, Thấm Nitơ…): hiện khi chọn template có thông số riêng -->
+            <Border x:Name="ManualBox" Visibility="Collapsed" Background="#F3F7FF" BorderBrush="#B9D0F2" BorderThickness="1" CornerRadius="10" Padding="14,10" Margin="0,14,0,0">
+              <StackPanel>
+                <TextBlock x:Name="ManualTitle" FontWeight="SemiBold" FontSize="14"/>
+                <TextBlock x:Name="ManualHint" FontSize="11.5" Foreground="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,2,0,4"/>
+                <StackPanel x:Name="ManualPanel"/>
+              </StackPanel>
+            </Border>
+            <ItemsControl x:Name="ErpList" Visibility="Collapsed"/>
+          </StackPanel>
+        </ScrollViewer>
+      </TabItem>
+
+      <!-- ============ ẢNH + KẾT QUẢ ĐO (gộp tab "Ảnh kiểm tra" + "Kết quả đo độ cứng") ============ -->
+      <TabItem Header="Ảnh &amp; kết quả đo độ cứng">
+        <DockPanel Margin="10">
+          <!-- thông tin đo chung (một hàng) -->
+          <Border DockPanel.Dock="Top" Background="{StaticResource Panel}" CornerRadius="8" Padding="12,4,12,10" Margin="0,0,0,10" x:Name="HardHead">
+            <WrapPanel>
+              <StackPanel Width="120" Margin="0,0,12,0"><TextBlock Text="Độ cứng yêu cầu" Style="{StaticResource Label}"/><TextBox x:Name="HardReqBox" FontWeight="SemiBold"/></StackPanel>
+              <StackPanel Width="96" Margin="0,0,12,0"><TextBlock Text="Đơn vị" Style="{StaticResource Label}"/>
+                <ComboBox x:Name="UnitBox" IsEditable="True">
+                  <ComboBoxItem Content="(HRC)"/><ComboBoxItem Content="(HRB)"/><ComboBoxItem Content="(HRA)"/><ComboBoxItem Content="(HV)"/><ComboBoxItem Content="(HB)"/>
+                </ComboBox></StackPanel>
+              <StackPanel Width="140" Margin="0,0,12,0"><TextBlock Text="Ngày kiểm" Style="{StaticResource Label}"/><DatePicker x:Name="CheckDateBox" SelectedDateFormat="Short"/></StackPanel>
+              <StackPanel x:Name="AppearanceRow" Width="120" Margin="0,0,12,0"><TextBlock Text="Ngoại quan" Style="{StaticResource Label}"/><TextBox x:Name="AppearanceBox"/></StackPanel>
+              <StackPanel x:Name="CurvRow" Orientation="Horizontal">
+                <StackPanel Width="130" Margin="0,0,12,0"><TextBlock Text="Độ cong yêu cầu" Style="{StaticResource Label}"/><TextBox x:Name="CurvReqBox"/></StackPanel>
+                <StackPanel Width="130" Margin="0,0,12,0"><TextBlock Text="Độ cong kết quả" Style="{StaticResource Label}"/><TextBox x:Name="CurvResBox"/></StackPanel>
+              </StackPanel>
+              <StackPanel x:Name="OtherRow" Width="170"><TextBlock Text="Yêu cầu khác" Style="{StaticResource Label}"/><TextBox x:Name="OtherBox"/></StackPanel>
+            </WrapPanel>
+          </Border>
+          <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="340"/></Grid.ColumnDefinitions>
+            <!-- phải: đánh giá + mẫu 1–6; nút "Xác nhận kết quả độ cứng" luôn nằm cố định ở đáy (không bị khuất khi màn hình thấp) -->
+            <DockPanel Grid.Column="2">
+            <Border DockPanel.Dock="Bottom" BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0" Padding="0,8,0,0" Margin="0,6,0,0" x:Name="ConfirmBar">
+              <StackPanel>
+                <Button x:Name="ConfirmHardBtn" Style="{StaticResource Primary}" Click="ConfirmHard_Click" HorizontalAlignment="Stretch">
+                  <StackPanel Orientation="Horizontal"><TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" Margin="0,0,6,0" VerticalAlignment="Center"/><TextBlock Text="Xác nhận kết quả độ cứng  →  Xuất CQ"/></StackPanel>
+                </Button>
+                <TextBlock x:Name="ConfirmState" TextWrapping="Wrap" Margin="0,6,0,0" FontSize="12"/>
+              </StackPanel>
+            </Border>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+              <StackPanel>
+                <Border Background="{StaticResource Panel}" CornerRadius="8" Padding="12,8" Margin="0,0,0,8">
+                  <StackPanel>
+                    <TextBlock Text="Đánh giá" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="EvalStatus" FontSize="20" FontWeight="Bold" Margin="0,1"/>
+                    <TextBlock x:Name="EvalDetail" TextWrapping="Wrap" FontSize="12"/>
+                  </StackPanel>
+                </Border>
+                <StackPanel x:Name="HardForm">
+                  <TextBlock Text="Kết quả đo — Mẫu 1–6" FontWeight="SemiBold"/>
+                  <TextBlock Text="Tự điền từ số trên ảnh máy đo (tăng dần). Nhiều điểm/mẫu: cách nhau khoảng trắng hoặc ;" TextWrapping="Wrap" FontSize="11.5" Foreground="{StaticResource Muted}"/>
+                  <ItemsControl x:Name="SampleBoxes" Margin="0,6,0,0"/>
+                  <TextBlock x:Name="AutoSampleText" TextWrapping="Wrap" FontSize="11.5" Foreground="{StaticResource Muted}" Margin="0,2,0,0"/>
+                  <WrapPanel Margin="0,8,0,0">
+                    <Button x:Name="ConfirmAllBtn" Content="Đọc số từ ảnh máy (OCR)" Style="{StaticResource Primary}" Click="ConfirmAll_Click"
+                            ToolTip="Xác nhận các số máy đọc trên ảnh (đã kiểm tra), điền Mẫu 1–6 tăng dần"/>
+                    <Button Content="Nhập từ CSV/Excel…" Click="ImportSamples_Click" ToolTip="File xuất từ máy đo: mỗi dòng = 1 mẫu, tối đa 6 mẫu"/>
+                  </WrapPanel>
+                  <TextBlock Text="Ghi chú khi KHÔNG ĐẠT" Style="{StaticResource Label}"/><TextBox x:Name="NoteBox"/>
+                  <TextBlock Text="Tự động lưu khi nhập." FontSize="11.5" Foreground="{StaticResource Muted}" Margin="0,4,0,0"/>
+                </StackPanel>
+              </StackPanel>
+            </ScrollViewer>
+            </DockPanel>
+            <!-- trái: ảnh -->
+            <DockPanel AllowDrop="True" Drop="Images_Drop" x:Name="ImagesPanel">
+              <!-- ảnh gần đây (Clipboard, Downloads, Desktop, Pictures): bấm 1 ảnh là thêm -->
+              <Border DockPanel.Dock="Bottom" Background="#0F1B33" CornerRadius="10" Padding="10,8" Margin="0,8,0,0">
+                <DockPanel>
+                  <StackPanel DockPanel.Dock="Left" Margin="0,0,10,0" VerticalAlignment="Center" Width="96">
+                    <TextBlock Text="ẢNH GẦN ĐÂY" Foreground="White" FontWeight="SemiBold" FontSize="12"/>
+                    <TextBlock Text="Clipboard · Downloads · Desktop — bấm 1 ảnh để thêm" Foreground="#9DB8E8" FontSize="10.5" TextWrapping="Wrap"/>
+                    <Button Content="↻ Làm mới" Click="RecentRefresh_Click" HorizontalAlignment="Left" Padding="8,2" MinHeight="24" Margin="0,4,0,0"/>
+                  </StackPanel>
+                  <ListBox x:Name="RecentList" Background="Transparent" BorderThickness="0" Height="84" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                           ScrollViewer.HorizontalScrollBarVisibility="Auto" PreviewMouseLeftButtonUp="Recent_Click">
+                    <ListBox.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate></ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                      <Style TargetType="ListBoxItem"><Setter Property="Padding" Value="0"/><Setter Property="Margin" Value="0,0,8,0"/><Setter Property="Cursor" Value="Hand"/></Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                      <DataTemplate>
+                        <StackPanel Width="100" ToolTip="{Binding Tip}" Opacity="{Binding Opacity}">
+                          <Border Height="54" CornerRadius="6" Background="#22314F" BorderBrush="#3A5A92" BorderThickness="1">
+                            <Image Source="{Binding Thumb}" Stretch="UniformToFill"/>
+                          </Border>
+                          <TextBlock Text="{Binding Name}" Foreground="White" FontSize="10.5" TextTrimming="CharacterEllipsis" Margin="0,3,0,0"/>
+                          <TextBlock Text="{Binding Sub}" Foreground="#9DB8E8" FontSize="9.5" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                      </DataTemplate>
+                    </ListBox.ItemTemplate>
+                  </ListBox>
+                </DockPanel>
+              </Border>
+              <!-- ảnh đang chọn: loại ảnh, khung ảnh CQ, cắt, xoá -->
+              <Border DockPanel.Dock="Bottom" x:Name="ImgEditBar" BorderBrush="{StaticResource Line}" BorderThickness="1" CornerRadius="8" Background="White" Padding="10,6" Margin="0,8,0,0">
+                <WrapPanel>
+                  <TextBlock x:Name="SelImgText" Text="Chọn ảnh" VerticalAlignment="Bottom" FontWeight="SemiBold" Margin="0,0,12,6"/>
+                  <StackPanel Margin="0,0,12,0"><TextBlock Text="Loại ảnh" FontSize="11.5" Foreground="{StaticResource Muted}"/>
+                    <ComboBox x:Name="ImgKindBox" Width="185">
+                      <ComboBoxItem Content="Ảnh đo độ cứng (máy đo)" Tag="Hardness"/>
+                      <ComboBoxItem Content="Ảnh sản phẩm (có số cân)" Tag="Sample"/>
+                      <ComboBoxItem Content="Ảnh kim tương / ảnh khác" Tag="Other"/>
+                    </ComboBox></StackPanel>
+                  <StackPanel Margin="0,0,12,0"><TextBlock Text="Khung ảnh của CQ" FontSize="11.5" Foreground="{StaticResource Muted}"/>
+                    <CheckBox x:Name="ImgOnCqBox" Content="Đưa vào khung ảnh của CQ" Margin="0,6,0,0"/></StackPanel>
+                  <Button x:Name="ApplyImgBtn" Content="Áp dụng" Style="{StaticResource Primary}" Click="ApplyImg_Click" VerticalAlignment="Bottom"/>
+                  <Button x:Name="CropImgBtn" Content="Cắt ảnh…" Click="CropSel_Click" VerticalAlignment="Bottom"/>
+                  <Button x:Name="RestoreImgBtn" Content="Bỏ cắt" Click="RestoreSel_Click" VerticalAlignment="Bottom"/>
+                  <Button x:Name="RemoveImgBtn" Content="Xoá ảnh" Style="{StaticResource Danger}" Click="RemoveSel_Click" VerticalAlignment="Bottom"/>
+                </WrapPanel>
+              </Border>
+              <DockPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+                <Button DockPanel.Dock="Right" x:Name="CaptureBtn" Click="Capture_Click" Margin="8,0,0,0"
+                        ToolTip="Chụp màn hình (Ctrl+Alt+S): kéo chọn vùng cần chụp — ảnh chụp tự vào đơn. Ảnh đã copy (Ctrl+C) / chụp bằng Zalo: bấm Ctrl+V.">
+                  <StackPanel Orientation="Horizontal"><TextBlock Text="&#xE722;" FontFamily="{StaticResource IconFont}" Margin="0,0,6,0" VerticalAlignment="Center"/><TextBlock Text="Chụp màn hình"/></StackPanel>
+                </Button>
+                <Button DockPanel.Dock="Right" x:Name="AddHardBtn" Content="Chọn tệp…" Style="{StaticResource Primary}" Click="AddHard_Click" Margin="8,0,0,0"
+                        ToolTip="Chọn ảnh màn hình máy đo và ảnh sản phẩm (chọn nhiều cùng lúc) — app tự phân loại"/>
+                <StackPanel>
+                  <TextBlock TextWrapping="Wrap" Foreground="{StaticResource Muted}" FontSize="12"
+                             ToolTip="App tự phân loại: ảnh màn hình máy đo → ảnh độ cứng (đọc số, điền Mẫu 1–6 tăng dần); ảnh còn lại → ảnh sản phẩm (đọc số cân). Số máy đọc chỉ là gợi ý: sửa ô số nếu sai rồi bấm ✔."
+                             Text="Thêm ảnh: Chọn tệp · kéo thả · Ctrl+V · Ctrl+Alt+S. App tự phân loại và đọc số — kiểm tra số rồi bấm ✔."/>
+                  <TextBlock x:Name="ImgStatus" Foreground="{StaticResource Muted}" FontSize="11.5" Margin="0,2,0,0"/>
+                </StackPanel>
+              </DockPanel>
+              <Grid>
+                <ListBox x:Name="ImageList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{StaticResource Line}" BorderThickness="1"
+                         SelectionMode="Single" SelectionChanged="ImageList_SelectionChanged">
+                  <ListBox.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ListBox.ItemsPanel>
+                  <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem"><Setter Property="Padding" Value="3"/><Setter Property="Margin" Value="4"/></Style>
+                  </ListBox.ItemContainerStyle>
+                  <ListBox.ItemTemplate>
+                    <DataTemplate>
+                      <Border Width="168" BorderBrush="{StaticResource Line}" BorderThickness="1" CornerRadius="6" Background="White" Padding="6,5" Tag="{Binding Id}" PreviewMouseLeftButtonDown="Card_PreviewDown">
+                        <StackPanel>
+                          <DockPanel>
+                            <TextBlock DockPanel.Dock="Right" Text="{Binding OnCqText}" FontSize="10.5" Foreground="{StaticResource Muted}"/>
+                            <TextBlock Text="{Binding KindText}" FontWeight="SemiBold" FontSize="12"/>
+                          </DockPanel>
+                          <Border Height="86" Background="#EEF1F5" Margin="0,3">
+                            <Image Source="{Binding Thumb}" Stretch="Uniform" Cursor="Hand" Tag="{Binding Id}" MouseLeftButtonUp="Thumb_Click" ToolTip="Bấm để xem ảnh lớn"/>
+                          </Border>
+                          <TextBlock Text="{Binding CropText}" Foreground="{Binding CropBrush}" FontSize="10.5" TextWrapping="Wrap"/>
+                          <DockPanel Margin="0,3,0,0" Visibility="{Binding ValueVisibility}">
+                            <Button DockPanel.Dock="Right" Content="✔" Tag="{Binding Id}" Click="ConfirmImg_Click" Margin="4,0,0,0" Padding="9,2" MinHeight="26" IsEnabled="{Binding CanEdit}" ToolTip="Xác nhận số này"/>
+                            <TextBlock DockPanel.Dock="Left" Text="{Binding ValueLabel}" VerticalAlignment="Center" Margin="0,0,4,0" FontSize="11.5" Foreground="{StaticResource Muted}"/>
+                            <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}" FontSize="14" FontWeight="SemiBold" ToolTip="{Binding OcrText}"/>
+                          </DockPanel>
+                          <TextBlock Text="{Binding ConfirmedText}" Foreground="{Binding ConfirmedBrush}" FontSize="10.5" TextWrapping="Wrap"/>
+                        </StackPanel>
+                      </Border>
+                    </DataTemplate>
+                  </ListBox.ItemTemplate>
+                </ListBox>
+                <TextBlock x:Name="ImgEmpty" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource Muted}" TextAlignment="Center"
+                           Text="Chưa có ảnh. Bấm &quot;Chọn tệp…&quot;, kéo-thả file ảnh vào đây, Ctrl+V để dán ảnh&#x0a;hoặc bấm một ảnh ở dải ẢNH GẦN ĐÂY bên dưới."/>
+              </Grid>
+            </DockPanel>
+          </Grid>
+        </DockPanel>
+      </TabItem>
+
+      <!-- ============ KẾT QUẢ ĐO ============ -->
+      <!-- ============ CQ ============ -->
+      <TabItem Header="Xuất CQ">
+        <DockPanel Margin="10">
+          <StackPanel DockPanel.Dock="Top">
+            <!-- Đúng theo ảnh mẫu người dùng gửi (17/11): 2 hàng nút, không thừa không thiếu -->
+            <WrapPanel Margin="0,0,0,8">
+              <TextBlock Text="Template CQ:" VerticalAlignment="Center" Foreground="{StaticResource Muted}" Margin="0,0,6,0"/>
+              <ComboBox x:Name="ExportTemplateBox" Width="260" DisplayMemberPath="DisplayName" SelectedValuePath="Id" Margin="0,0,12,0"
+                        ToolTip="Template dùng để tạo file CQ (chọn lại để tạo CQ theo mẫu khác)"/>
+              <Button x:Name="CreateCqBtn" Content="Tạo file CQ" Style="{StaticResource Primary}" Click="CreateDraft_Click"
+                      ToolTip="Cấp số báo cáo, tạo file CQ và mở Excel để kiểm tra (kèm dấu + chữ ký nếu ô bên cạnh được chọn)"/>
+              <CheckBox x:Name="WithSignBox" Content="Kèm dấu + chữ ký" VerticalAlignment="Center" Margin="0,0,12,0" Click="WithSignBox_Click"
+                        ToolTip="Bật: file Excel CQ có sẵn con dấu công ty (Sao Phương Đông) + chữ ký người duyệt / người kiểm tra (vị trí mặc định của template) — bấm vào dấu, chữ ký trong Excel để kéo / đổi cỡ. Tắt: file CQ chưa dấu, chưa ký."/>
+              <Button x:Name="ApproveBtn" Style="{StaticResource Primary}" Click="DuyetCq_Click"
+                      ToolTip="Chọn người ký, kéo vị trí dấu / chữ ký, xem trước rồi duyệt → lưu PDF có dấu + chữ ký vào thư mục lưu CQ">
+                <StackPanel Orientation="Horizontal"><TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" Margin="0,0,6,0" VerticalAlignment="Center"/><TextBlock Text="Duyệt CQ (xuất PDF có dấu, chữ ký)"/></StackPanel>
+              </Button>
+              <Button x:Name="EditPrintBtn" Content="Sửa trong Excel rồi in…" Click="EditPrint_Click"
+                      ToolTip="Mọi kiểu bản in (có dấu + chữ ký / có dấu chưa ký / ký tay): mở Excel sửa nội dung bất kỳ ô nào, lưu, rồi tạo PDF đúng như file đã sửa"/>
+              <Button x:Name="CreateCqManualBtn" Content="Đổi số báo cáo (tạo lại CQ)" Click="CreateCqManual_Click"/>
+            </WrapPanel>
+            <WrapPanel Margin="0,0,0,8">
+              <Button Content="Mở PDF đã duyệt" Click="OpenPdf_Click"/>
+              <Button Content="Mở thư mục PDF" Click="OpenPdfFolder_Click" ToolTip="Mở thư mục tháng-năm chứa PDF của CQ đang chọn"/>
+              <Button Content="Mở file" Click="OpenXlsx_Click" ToolTip="Mở file Excel của CQ đang chọn"/>
+              <Button Content="Mở thư mục" Click="OpenCqRoot_Click" ToolTip="Mở thư mục lưu CQ (chứa các thư mục tháng-năm)"/>
+              <Button Content="Lưu bản sao…" Click="SaveCopy_Click"/>
+              <CheckBox x:Name="PrintedBox" Content="Đã in" VerticalAlignment="Center" Margin="4,0,14,0" Click="PrintedBox_Click"/>
+              <Button x:Name="DeleteCqBtn" Content="Xoá CQ đã chọn…" Style="{StaticResource Danger}" Click="DeleteCq_Click"/>
+            </WrapPanel>
+            <!-- giữ lựa chọn người ký / máy in đã nhớ trên máy (ẩn) -->
+            <StackPanel Visibility="Collapsed">
+              <ComboBox x:Name="ApproverBox" DisplayMemberPath="Name"/><ComboBox x:Name="CheckerBox" DisplayMemberPath="Name"/>
+              <CheckBox x:Name="PrintAfterBox"/><ComboBox x:Name="PrinterBox"/><TextBox x:Name="CopiesBox" Text="1"/>
+              <TextBlock x:Name="PdfFolderText"/>
+            </StackPanel>
+            <Border x:Name="ExportNotesBox" Background="#FFF6E5" BorderBrush="#F2C879" BorderThickness="1" CornerRadius="8" Padding="10,8" Margin="0,0,0,8" Visibility="Collapsed">
+              <StackPanel>
+                <TextBlock Text="⚠ Lưu ý của đơn / khách hàng" FontWeight="SemiBold" Foreground="#8A5A00"/>
+                <TextBlock x:Name="ExportNotesText" TextWrapping="Wrap" Margin="0,4,0,0"/>
+              </StackPanel>
+            </Border>
+            <TextBlock x:Name="CqHint" TextWrapping="Wrap" Foreground="{StaticResource Muted}" Margin="0,0,0,6"/>
+          </StackPanel>
+          <DataGrid x:Name="CqGrid" SelectionChanged="CqGrid_SelectionChanged">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="Ver" Binding="{Binding Ver}" Width="45"/>
+              <DataGridTextColumn Header="Số báo cáo" Binding="{Binding ReportNo}" Width="95"/>
+              <DataGridTextColumn Header="Kết quả" Binding="{Binding ResultText}" Width="90"/>
+              <DataGridTextColumn Header="Trạng thái" Binding="{Binding StateText}" Width="170"/>
+              <DataGridTextColumn Header="Duyệt" Binding="{Binding Approved}" Width="150"/>
+              <DataGridTextColumn Header="In" Binding="{Binding PrintedText}" Width="130"/>
+              <DataGridTextColumn Header="Cảnh báo" Binding="{Binding Notes}" Width="*"/>
+              <DataGridTextColumn Header="Template" Binding="{Binding Rec.TemplateName}" Width="120"/>
+              <DataGridTextColumn Header="Người tạo" Binding="{Binding Rec.CreatedBy}" Width="95"/>
+              <DataGridTextColumn Header="Thời điểm" Binding="{Binding Created}" Width="140"/>
+            </DataGrid.Columns>
+          </DataGrid>
+        </DockPanel>
+      </TabItem>
+
+      <!-- ============ LƯU Ý (QC + Kinh doanh) ============ -->
+      <TabItem x:Name="NotesTab" Header="Lưu ý">
+        <Grid Margin="10">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="16"/><ColumnDefinition Width="380"/></Grid.ColumnDefinitions>
+          <Grid>
+            <ListBox x:Name="NotesList" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
+              <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem"><Setter Property="Padding" Value="0"/><Setter Property="Margin" Value="0,0,0,10"/><Setter Property="Focusable" Value="False"/></Style>
+              </ListBox.ItemContainerStyle>
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <Border BorderBrush="{StaticResource Line}" BorderThickness="1" CornerRadius="4" Background="{Binding Background}" Padding="10">
+                    <StackPanel>
+                      <DockPanel>
+                        <Button DockPanel.Dock="Right" Content="Ẩn" Tag="{Binding Id}" Click="HideNote_Click" Padding="8,2" MinHeight="22" Margin="0"
+                                Visibility="{Binding HideVisibility}"/>
+                        <TextBlock Text="{Binding Header}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                      </DockPanel>
+                      <TextBlock Text="{Binding Badges}" Foreground="{StaticResource WarnBrush}" FontSize="11.5" TextWrapping="Wrap"/>
+                      <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Margin="0,6,0,0" FontSize="13.5"/>
+                      <ItemsControl ItemsSource="{Binding Thumbs}" Margin="0,6,0,0">
+                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                          <DataTemplate>
+                            <Border BorderBrush="{StaticResource Line}" BorderThickness="1" Margin="0,0,6,6" Background="#EEF1F5">
+                              <Image Source="{Binding Image}" Height="96" MaxWidth="160" Stretch="Uniform" Cursor="Hand" Tag="{Binding Key}" MouseLeftButtonUp="NoteThumb_Click" ToolTip="{Binding Name}"/>
+                            </Border>
+                          </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                      </ItemsControl>
+                    </StackPanel>
+                  </Border>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBlock x:Name="NotesEmpty" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource Muted}" TextAlignment="Center"
+                       Text="Chưa có lưu ý nào cho đơn này."/>
+          </Grid>
+          <Border Grid.Column="2" Background="{StaticResource Panel}" CornerRadius="4" Padding="12" VerticalAlignment="Top" x:Name="NoteForm">
+            <StackPanel>
+              <TextBlock Text="Thêm lưu ý (QC / Kinh doanh)" FontWeight="SemiBold"/>
+              <TextBlock Text="Nội dung" Style="{StaticResource Label}"/>
+              <TextBox x:Name="NoteText" Height="140" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+              <CheckBox x:Name="ForCustomerBox" Margin="0,8,0,0" Content="Nhắc lại ở các đơn SAU của khách hàng này"/>
+              <TextBlock Text="Ảnh đính kèm (ảnh khách gửi, ảnh hàng lỗi…)" Style="{StaticResource Label}"/>
+              <ItemsControl x:Name="AttachList"/>
+              <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                <Button Content="+ Đính kèm ảnh…" Click="AttachNoteImage_Click"/>
+                <Button Content="Bỏ ảnh đính kèm" Click="ClearAttach_Click"/>
+              </StackPanel>
+              <Button x:Name="SaveNoteBtn" Content="Lưu lưu ý" Style="{StaticResource Primary}" Click="SaveNote_Click" HorizontalAlignment="Left" Margin="0,12,0,0"/>
+              <TextBlock TextWrapping="Wrap" FontSize="11.5" Foreground="{StaticResource Muted}" Margin="0,8,0,0"
+                         Text="Lưu ý được lưu riêng từng mục, ghi rõ người viết và thời gian; không ai sửa được nội dung của người khác. Khi mất kết nối, lưu ý được lưu tạm trên máy và tự gửi lên kho chung."/>
+            </StackPanel>
+          </Border>
+        </Grid>
+      </TabItem>
+    </TabControl>
+  </DockPanel>
+</Window>

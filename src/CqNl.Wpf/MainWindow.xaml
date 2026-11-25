@@ -1,0 +1,77 @@
+<Window x:Class="CqNl.Wpf.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="CQ Nhiệt Luyện" Icon="pack://application:,,,/CQNhietLuyen;component/Assets/app.ico" Width="1366" Height="820" MinWidth="1080" MinHeight="620"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="{StaticResource Page}">
+  <DockPanel>
+    <!-- ============ Thanh bên ============ -->
+    <Border DockPanel.Dock="Left" Width="196" Background="{StaticResource SidebarBrush}">
+      <DockPanel>
+        <Border DockPanel.Dock="Top" Margin="12,12,12,10" Background="White" CornerRadius="10" Padding="10,6">
+          <Border.Effect><DropShadowEffect BlurRadius="16" ShadowDepth="0" Opacity="0.45" Color="#4DA3FF"/></Border.Effect>
+          <Image Source="pack://application:,,,/CQNhietLuyen;component/Assets/logo_wide.png" Height="48" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+        </Border>
+        <!-- thẻ người dùng + nơi lưu dữ liệu -->
+        <Border DockPanel.Dock="Bottom" Margin="14,8,14,14" Padding="12,10" CornerRadius="10" Background="#0B1730" BorderBrush="#24406D" BorderThickness="1">
+          <StackPanel>
+            <StackPanel Orientation="Horizontal">
+              <Border Width="30" Height="30" CornerRadius="15" Background="{StaticResource PrimaryBrush}">
+                <TextBlock x:Name="AvatarText" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+              </Border>
+              <StackPanel Margin="8,0,0,0" VerticalAlignment="Center">
+                <TextBlock x:Name="UserName" Foreground="White" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" MaxWidth="118"/>
+                <TextBlock x:Name="UserRole" Foreground="#8FB3E8" FontSize="11.5"/>
+              </StackPanel>
+            </StackPanel>
+            <!-- đường dẫn kho / dữ liệu máy: chỉ hiện khi rê chuột (chi tiết ở Cài đặt) -->
+            <TextBlock x:Name="StorePathText" Visibility="Collapsed"/><TextBlock x:Name="LocalPathText" Visibility="Collapsed"/>
+          </StackPanel>
+        </Border>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+          <StackPanel>
+            <TextBlock Text="NGHIỆP VỤ" Foreground="#6F8BB5" FontSize="10.5" FontWeight="SemiBold" Margin="26,4,0,4"/>
+            <ToggleButton x:Name="NavOrders" Content="Đơn gia công" Tag="&#xE8FD;" Style="{StaticResource Nav}" Click="Nav_Click"/>
+            <ToggleButton x:Name="NavCq" Content="Lịch sử CQ" Tag="&#xE81C;" Style="{StaticResource Nav}" Click="Nav_Click"/>
+            <ToggleButton x:Name="NavDash" Content="Tổng quan" Tag="&#xE80F;" Style="{StaticResource Nav}" Click="Nav_Click"/>
+            <TextBlock x:Name="AdminHead" Text="QUẢN TRỊ" Foreground="#6F8BB5" FontSize="10.5" FontWeight="SemiBold" Margin="26,14,0,4"/>
+            <ToggleButton x:Name="NavTemplates" Content="Template CQ" Tag="&#xE8A5;" Style="{StaticResource Nav}" Click="Nav_Click"/>
+            <ToggleButton x:Name="NavUsers" Content="Tài khoản &amp; phiên" Tag="&#xE716;" Style="{StaticResource Nav}" Click="Nav_Click"/>
+            <ToggleButton x:Name="NavAudit" Content="Nhật ký thao tác" Tag="&#xE7C3;" Style="{StaticResource Nav}" Click="Nav_Click"/>
+            <ToggleButton x:Name="NavSettings" Content="Cài đặt" Tag="&#xE713;" Style="{StaticResource Nav}" Click="Nav_Click"/>
+          </StackPanel>
+        </ScrollViewer>
+      </DockPanel>
+    </Border>
+    <!-- ============ Chân trang cố định ============ -->
+    <Border DockPanel.Dock="Bottom" Background="White" BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0">
+      <TextBlock x:Name="FooterText" Style="{StaticResource Footer}"/>
+    </Border>
+    <!-- ============ Thanh trạng thái kết nối ============ -->
+    <Border DockPanel.Dock="Top" Background="White" Padding="16,8">
+      <Border.Effect><DropShadowEffect BlurRadius="10" ShadowDepth="1" Direction="270" Opacity="0.08"/></Border.Effect>
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+          <Button x:Name="CheckBtn" Content="Kiểm tra máy này" Click="Check_Click" ToolTip="Máy này có đủ điều kiện tạo CQ dùng chung kho không (kho, Excel, thư mục lưu CQ, ERP, máy in, mẫu, chữ ký, phiên bản)"/>
+          <Button Content="Đổi mật khẩu" Click="ChangePass_Click"/>
+          <Button Content="Đăng xuất" Click="Logout_Click" Margin="0"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+          <Border x:Name="Badge" CornerRadius="12" Padding="12,4" Margin="0,0,12,0">
+            <StackPanel Orientation="Horizontal">
+              <Ellipse Width="8" Height="8" Fill="White" Margin="0,0,6,0" VerticalAlignment="Center"/>
+              <TextBlock x:Name="BadgeText" Foreground="White" FontWeight="Bold"/>
+            </StackPanel>
+          </Border>
+          <TextBlock x:Name="ConnText" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" MaxWidth="560" Foreground="{StaticResource Muted}"/>
+          <Button x:Name="SyncBtn" Content="Đồng bộ ngay" Margin="12,0,6,0" Click="Sync_Click" Visibility="Collapsed"/>
+          <Button x:Name="ConflictBtn" Content="Xung đột (0)" Click="Conflicts_Click" Visibility="Collapsed" Style="{StaticResource Danger}"/>
+        </StackPanel>
+      </DockPanel>
+    </Border>
+    <Border x:Name="MessageBar" DockPanel.Dock="Top" Background="#FFF4CE" Padding="16,7" Visibility="Collapsed">
+      <DockPanel>
+        <Button DockPanel.Dock="Right" Content="&#xE711;" Style="{StaticResource IconButton}" Click="HideMsg_Click"/>
+        <TextBlock x:Name="MessageText" TextWrapping="Wrap" VerticalAlignment="Center"/>
+      </DockPanel>
+    </Border>
+    <ContentControl x:Name="Host" Margin="14,10"/>
+  </DockPanel>
+</Window>

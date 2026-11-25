@@ -1,0 +1,176 @@
+<UserControl x:Class="CqNl.Wpf.Views.SettingsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Bố cục gọn theo mẫu người dùng gửi (17/11): mỗi mục một thẻ — tiêu đề, một dòng giải thích, hàng "ô đường dẫn + nút". -->
+  <UserControl.Resources>
+    <Style x:Key="Sec" TargetType="Border" BasedOn="{StaticResource Card}"><Setter Property="Margin" Value="0,0,0,10"/><Setter Property="Padding" Value="14,10"/></Style>
+    <Style x:Key="SecTitle" TargetType="TextBlock" BasedOn="{StaticResource H2}"><Setter Property="FontSize" Value="14"/><Setter Property="Margin" Value="0,0,0,2"/></Style>
+    <Style x:Key="SecNote" TargetType="TextBlock"><Setter Property="Foreground" Value="{StaticResource Muted}"/><Setter Property="FontSize" Value="12"/><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="Margin" Value="0,0,0,4"/></Style>
+    <Style x:Key="Path" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}"><Setter Property="VerticalContentAlignment" Value="Center"/><Setter Property="MinHeight" Value="28"/></Style>
+    <Style x:Key="Ok" TargetType="TextBlock"><Setter Property="FontSize" Value="12"/><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="Margin" Value="0,4,0,0"/></Style>
+  </UserControl.Resources>
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel MaxWidth="1100" HorizontalAlignment="Left" Margin="0,0,8,0">
+      <TextBlock Text="Cài đặt" Style="{StaticResource H1}"/>
+
+      <!-- ================= 1. Nguồn dữ liệu (dùng chung mọi máy) ================= -->
+      <Border Style="{StaticResource Sec}">
+        <StackPanel>
+          <TextBlock Text="Nguồn dữ liệu" Style="{StaticResource SecTitle}"/>
+          <TextBlock Style="{StaticResource SecNote}" Text="Dùng chung mọi máy. Chọn thư mục nằm trong kho chung trên máy chứa kho (ADMIN-PC) — app tự đổi sang đường dẫn mạng \\ADMIN-PC\... để máy nào cũng vào được."/>
+
+          <TextBlock Text="File &quot;Mác thép và thông số nhiệt&quot; (tra dung sai, nhiệt độ tôi / ram, loại template)" Style="{StaticResource Label}"/>
+          <DockPanel>
+            <Button DockPanel.Dock="Right" Content="Chọn…" Click="Steel_Click" Margin="8,0,0,0"/>
+            <TextBox x:Name="SteelBox" Style="{StaticResource Path}" IsReadOnly="True"/>
+          </DockPanel>
+          <TextBlock x:Name="SteelText" Style="{StaticResource Ok}"/>
+
+          <TextBlock Text="Thư mục theo dõi file ERP (tự nhập các file MF0015 mới trong thư mục này, 2 phút/lần)" Style="{StaticResource Label}"/>
+          <DockPanel>
+            <Button DockPanel.Dock="Right" Content="Quét ngay" Click="ScanErp_Click" Margin="8,0,0,0"/>
+            <Button DockPanel.Dock="Right" Content="Chọn…" Click="BrowseErp_Click" Margin="8,0,0,0"/>
+            <TextBox x:Name="ErpFolderBox" Style="{StaticResource Path}" IsReadOnly="True"/>
+          </DockPanel>
+          <TextBlock x:Name="ErpText" Style="{StaticResource Ok}"/>
+
+          <TextBlock Text="Thư mục lưu file CQ (PDF có dấu + chữ ký, PDF ký tay, Excel — mỗi tháng một thư mục con, vd 11-2026)" Style="{StaticResource Label}"/>
+          <DockPanel>
+            <Button DockPanel.Dock="Right" Content="Mở thư mục" Click="OpenCqFolder_Click" Margin="8,0,0,0"/>
+            <Button DockPanel.Dock="Right" Content="Chọn…" Click="BrowseCqFolder_Click" Margin="8,0,0,0"/>
+            <TextBox x:Name="CqFolderBox" Style="{StaticResource Path}" IsReadOnly="True"/>
+          </DockPanel>
+          <TextBlock x:Name="CqFolderText" Style="{StaticResource Ok}"/>
+
+          <TextBlock x:Name="TemplateText" Style="{StaticResource SecNote}" Margin="0,10,0,0"/>
+        </StackPanel>
+      </Border>
+
+      <!-- ================= 2. Dùng chung nhiều người ================= -->
+      <Border Style="{StaticResource Sec}">
+        <StackPanel>
+          <TextBlock Text="Dùng chung nhiều người (kho chung)" Style="{StaticResource SecTitle}"/>
+          <TextBlock Style="{StaticResource SecNote}"
+                     Text="Kho chung đặt trên máy ADMIN-PC — chỉ cần máy này BẬT NGUỒN là mọi máy làm việc được. Mọi máy trỏ vào CÙNG một thư mục kho: tài khoản, đơn, số đo, ảnh, số báo cáo, CQ, chữ ký, template đều nằm ở đây. Đơn đang có người mở sẽ bị khoá với người khác. Đường dẫn này lưu riêng từng máy (chọn khi cài app hoặc ở màn Đăng nhập)."/>
+          <TextBlock Text="Thư mục kho chung (máy này)" Style="{StaticResource Label}"/>
+          <DockPanel>
+            <Button DockPanel.Dock="Right" Content="Mở thư mục" Click="OpenStore_Click" Margin="8,0,0,0"/>
+            <Button DockPanel.Dock="Right" Content="Đổi thư mục…" Style="{StaticResource Primary}" Click="ChangeStore_Click" Margin="8,0,0,0"/>
+            <TextBox x:Name="StoreBox" Style="{StaticResource Path}" IsReadOnly="True"/>
+          </DockPanel>
+          <WrapPanel Margin="0,10,0,0">
+            <Button Content="Đồng bộ ngay" Click="Sync_Click"/>
+            <Button Content="Đổi người dùng" Click="SwitchUser_Click" ToolTip="Đăng xuất để người khác đăng nhập trên máy này"/>
+            <Button Content="Đổi mật khẩu của tôi…" Click="ChangePass_Click"/>
+            <Button Content="Kiểm tra máy này" Click="CheckMachine_Click"/>
+          </WrapPanel>
+          <TextBlock x:Name="StoreText" Style="{StaticResource Ok}" Margin="0,8,0,0"/>
+        </StackPanel>
+      </Border>
+
+      <!-- ================= 3. Dấu & chữ ký ================= -->
+      <Border Style="{StaticResource Sec}">
+        <StackPanel>
+          <TextBlock Text="Dấu &amp; chữ ký (dùng khi Duyệt CQ → PDF)" Style="{StaticResource SecTitle}"/>
+          <TextBlock Style="{StaticResource SecNote}" Text="Ảnh nền trắng tự được làm trong suốt. Chữ ký chèn vào ô &quot;Xác nhận/Approved&quot; và &quot;Kiểm tra/Checker&quot;; vị trí dấu và chữ ký kéo chỉnh được khi duyệt từng CQ."/>
+          <DockPanel Margin="0,8,0,0">
+            <Border DockPanel.Dock="Left" Width="150" Height="80" BorderBrush="{StaticResource Line}" BorderThickness="1" CornerRadius="8" Background="White">
+              <Image x:Name="StampImg" Stretch="Uniform" Margin="6"/>
+            </Border>
+            <StackPanel Margin="16,0,0,0" VerticalAlignment="Center">
+              <TextBlock Text="Dấu công ty" FontWeight="SemiBold"/>
+              <TextBlock x:Name="StampText" Foreground="{StaticResource Muted}" FontSize="12"/>
+              <Button Content="Chọn ảnh…" Click="Stamp_Click" HorizontalAlignment="Left" Margin="0,6,0,0"/>
+            </StackPanel>
+          </DockPanel>
+          <TextBlock Text="Danh sách chữ ký" FontWeight="SemiBold" Margin="0,14,0,0"/>
+          <TextBlock Style="{StaticResource SecNote}" Text="Khi Duyệt CQ chọn ai là người duyệt, ai là người kiểm tra (mặc định lấy theo lựa chọn bên dưới)."/>
+          <ItemsControl x:Name="SignerList">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <DockPanel Margin="0,0,0,8">
+                  <Border DockPanel.Dock="Left" Width="150" Height="64" BorderBrush="{StaticResource Line}" BorderThickness="1" CornerRadius="8" Background="White">
+                    <Image Source="{Binding Thumb}" Stretch="Uniform" Margin="6"/>
+                  </Border>
+                  <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="Đổi tên…" Tag="{Binding Id}" Click="RenameSigner_Click"/>
+                    <Button Content="Xoá" Tag="{Binding Id}" Click="RemoveSigner_Click" Style="{StaticResource Danger}" Margin="0"/>
+                  </StackPanel>
+                  <StackPanel Margin="16,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding State}" Foreground="{StaticResource Muted}" FontSize="12"/>
+                  </StackPanel>
+                </DockPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+          <Button Content="Thêm chữ ký… (file ảnh, kéo thả hoặc Ctrl+V)" Style="{StaticResource Primary}" Click="AddSigner_Click" HorizontalAlignment="Left" Margin="0,2,0,0"/>
+          <WrapPanel Margin="0,8,0,0">
+            <StackPanel Width="300" Margin="0,0,16,0"><TextBlock Text="Người duyệt mặc định (Xác nhận/Approved)" Style="{StaticResource Label}"/>
+              <ComboBox x:Name="DefApprover" DisplayMemberPath="Name" SelectionChanged="Defaults_Changed"/></StackPanel>
+            <StackPanel Width="300"><TextBlock Text="Người kiểm tra mặc định (Kiểm tra/Checker)" Style="{StaticResource Label}"/>
+              <ComboBox x:Name="DefChecker" DisplayMemberPath="Name" SelectionChanged="Defaults_Changed"/></StackPanel>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- ================= 4. Tên khách hàng in trên CQ ================= -->
+      <Border Style="{StaticResource Sec}">
+        <StackPanel>
+          <TextBlock Text="Tên khách hàng in trên CQ" Style="{StaticResource SecTitle}"/>
+          <TextBlock Style="{StaticResource SecNote}" Text="CQ in tên viết tắt (như cột KHÁCH HÀNG trong sổ THEO DÕI ĐƠN HÀNG). Nhập một lần từ file CQ 20xx.xlsx; QC sửa thêm ngay trong màn hình đơn."/>
+          <DockPanel Margin="0,4,0,0">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+              <Button Content="Nhập từ sổ theo dõi…" Click="ImportAliases_Click"/>
+              <Button Content="Xoá dòng đã chọn" Click="DeleteAlias_Click" Margin="0"/>
+            </StackPanel>
+            <TextBlock x:Name="AliasText" VerticalAlignment="Center" TextWrapping="Wrap"/>
+          </DockPanel>
+          <DataGrid x:Name="AliasGrid" Height="170" Margin="0,8,0,0" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="Tên khách hàng trên ERP" Binding="{Binding Key}" Width="*"/>
+              <DataGridTextColumn Header="Tên in trên CQ" Binding="{Binding Value}" Width="240"/>
+            </DataGrid.Columns>
+          </DataGrid>
+        </StackPanel>
+      </Border>
+
+      <!-- ================= 5. Cập nhật phần mềm ================= -->
+      <Border Style="{StaticResource Sec}">
+        <StackPanel>
+          <TextBlock Text="Cập nhật phần mềm" Style="{StaticResource SecTitle}"/>
+          <TextBlock Style="{StaticResource SecNote}" Text="Chọn bộ cài mới → chép vào kho chung. Mỗi máy khi mở app được hỏi cập nhật; dữ liệu giữ nguyên."/>
+          <TextBlock x:Name="UpdateText" TextWrapping="Wrap" Margin="0,4,0,8"/>
+          <StackPanel Orientation="Horizontal">
+            <Button Content="Phát hành bản cập nhật…" Click="Publish_Click"/>
+            <Button x:Name="UpdateNowBtn" Content="Cập nhật máy này" Click="UpdateNow_Click" IsEnabled="False"/>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- ================= 6. Sao lưu ================= -->
+      <Border Style="{StaticResource Sec}">
+        <StackPanel>
+          <TextBlock Text="Sao lưu và khôi phục" Style="{StaticResource SecTitle}"/>
+          <TextBlock Style="{StaticResource SecNote}" Text="Sao lưu chép toàn bộ kho kèm mã kiểm SHA-256 từng file. Khôi phục chỉ vào thư mục TRỐNG — không ghi đè kho đang dùng."/>
+          <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+            <Button Content="Sao lưu ngay…" Click="Backup_Click"/>
+            <Button Content="Kiểm tra bản sao lưu…" Click="Verify_Click"/>
+            <Button Content="Khôi phục vào thư mục trống…" Click="Restore_Click"/>
+          </StackPanel>
+          <TextBlock x:Name="BackupText" TextWrapping="Wrap" Margin="0,6,0,0"/>
+        </StackPanel>
+      </Border>
+
+      <!-- ================= 7. Reset dữ liệu ================= -->
+      <Border Style="{StaticResource Sec}" BorderBrush="#C62828" BorderThickness="1.5">
+        <StackPanel>
+          <TextBlock Text="Reset dữ liệu" Style="{StaticResource SecTitle}" Foreground="#B71C1C"/>
+          <TextBlock Style="{StaticResource SecNote}"
+                     Text="Xoá toàn bộ dữ liệu đã nhập: đơn gia công, số đo độ cứng, ảnh, các bản CQ trong app, lưu ý, nhật ký và số báo cáo đã cấp. Giữ lại: tài khoản, cài đặt, chữ ký, con dấu, mác thép, tên viết tắt khách, template. App TỰ SAO LƯU toàn bộ kho (kiểm tra SHA-256) trước khi xoá; sau reset app tự nhập lại đơn từ thư mục ERP. File PDF/Excel đã lưu ở thư mục lưu CQ KHÔNG bị xoá."/>
+          <Button Content="Reset dữ liệu…" Style="{StaticResource Danger}" Click="Reset_Click" HorizontalAlignment="Left" Margin="0,6,0,0"/>
+          <TextBlock x:Name="ResetText" TextWrapping="Wrap" Margin="0,6,0,0"/>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

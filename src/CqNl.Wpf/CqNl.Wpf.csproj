@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>CQNhietLuyen</AssemblyName>
+    <RootNamespace>CqNl.Wpf</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Assets\logo.png" />
+    <Resource Include="Assets\logo_wide.png" />
+    <Resource Include="Assets\app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CqNl.Application\CqNl.Application.csproj" />
+  </ItemGroup>
+  <!-- Tài nguyên cài kèm: template GỐC (chỉ đọc), bản đồ ô, preset ảnh, dữ liệu OCR -->
+  <ItemGroup>
+    <None Include="..\..\sources\templates\*.xlsx" Link="assets\templates\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\config\template-maps\*.json" Link="assets\template-maps\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\config\image-presets\*.json" Link="assets\image-presets\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\sources\samples\eng.traineddata" Link="assets\tessdata\eng.traineddata" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

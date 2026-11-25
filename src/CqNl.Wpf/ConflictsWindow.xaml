@@ -1,0 +1,20 @@
+<Window x:Class="CqNl.Wpf.ConflictsWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Xung đột dữ liệu" Width="1000" Height="640" WindowStartupLocation="CenterOwner">
+  <DockPanel Margin="14">
+    <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Margin="0,0,0,8"
+               Text="Nháp offline của bạn và dữ liệu trên kho đã bị sửa cùng lúc. Ứng dụng giữ CẢ HAI bản và không tự chọn. So sánh rồi chọn cách xử lý cho từng mục."/>
+    <ListBox DockPanel.Dock="Left" x:Name="List" Width="250" DisplayMemberPath="Title" SelectionChanged="List_SelectionChanged" Margin="0,0,10,0"/>
+    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+      <Button Content="Giữ bản trên kho (bỏ nháp của tôi)" Click="KeepStore_Click"/>
+      <Button Content="Ghi bản của tôi thành bản mới nhất" Style="{StaticResource Primary}" Click="KeepMine_Click"/>
+      <Button Content="Đóng" IsCancel="True" Margin="0"/>
+    </StackPanel>
+    <DataGrid x:Name="Diff">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Trường" Binding="{Binding Field}" Width="200"/>
+        <DataGridTextColumn Header="Bản của tôi (nháp)" Binding="{Binding Mine}" Width="*"/>
+        <DataGridTextColumn Header="Bản trên kho" Binding="{Binding Store}" Width="*"/>
+      </DataGrid.Columns>
+    </DataGrid>
+  </DockPanel>
+</Window>

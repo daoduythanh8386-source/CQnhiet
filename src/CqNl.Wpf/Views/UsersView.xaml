@@ -1,0 +1,38 @@
+<UserControl x:Class="CqNl.Wpf.Views.UsersView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Grid>
+    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="18"/><ColumnDefinition Width="340"/></Grid.ColumnDefinitions>
+    <DockPanel>
+      <DataGrid x:Name="Grid" SelectionChanged="Grid_SelectionChanged">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Tên đăng nhập" Binding="{Binding Username}" Width="140"/>
+          <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}" Width="*"/>
+          <DataGridTextColumn Header="Vai trò" Binding="{Binding RoleText}" Width="130"/>
+          <DataGridTextColumn Header="Trạng thái" Binding="{Binding StateText}" Width="140"/>
+        </DataGrid.Columns>
+      </DataGrid>
+    </DockPanel>
+    <Border Grid.Column="2" Style="{StaticResource Card}" VerticalAlignment="Top">
+      <StackPanel>
+        <TextBlock x:Name="FormTitle" Text="Thêm tài khoản" Style="{StaticResource H2}"/>
+        <TextBlock Text="Tên đăng nhập" Style="{StaticResource Label}"/><TextBox x:Name="UserBox"/>
+        <TextBlock Text="Họ tên" Style="{StaticResource Label}"/><TextBox x:Name="NameBox"/>
+        <TextBlock Text="Vai trò" Style="{StaticResource Label}"/>
+        <ComboBox x:Name="RoleBox" SelectedIndex="1">
+          <ComboBoxItem Content="Quản trị (admin)" Tag="Admin"/><ComboBoxItem Content="QC" Tag="Qc"/><ComboBoxItem Content="Kinh doanh (xem + ghi lưu ý)" Tag="Sales"/><ComboBoxItem Content="Chỉ xem (viewer)" Tag="Viewer"/>
+        </ComboBox>
+        <CheckBox x:Name="ActiveBox" Content="Đang hoạt động (bỏ chọn = khóa tài khoản)" IsChecked="True" Margin="0,10,0,0"/>
+        <TextBlock Text="Mật khẩu mặc định (tài khoản mới / đặt lại)" Style="{StaticResource Label}"/>
+        <PasswordBox x:Name="PassBox"/>
+        <TextBlock Text="Người dùng phải đổi mật khẩu này ở lần đăng nhập đầu." FontSize="11.5" Foreground="{StaticResource Muted}" TextWrapping="Wrap"/>
+        <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+          <Button Content="Lưu" Style="{StaticResource Primary}" Click="Save_Click"/>
+          <Button Content="+ Tạo tài khoản mới" Click="New_Click"/>
+          <Button x:Name="DeleteBtn" Content="Xoá tài khoản…" Style="{StaticResource Danger}" Click="Delete_Click" Margin="0" IsEnabled="False"/>
+        </StackPanel>
+        <TextBlock Text="Xoá: tài khoản bị xoá hẳn, không đăng nhập được nữa; đơn / CQ người đó đã làm vẫn giữ nguyên. Muốn tạm dừng thì bỏ chọn &quot;Đang hoạt động&quot; (khoá) thay vì xoá."
+                   FontSize="11.5" Foreground="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,8,0,0"/>
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>
