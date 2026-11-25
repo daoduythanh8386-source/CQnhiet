@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net8.0-windows</TargetFramework><IsPackable>false</IsPackable></PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CqNl.Domain\CqNl.Domain.csproj" />
+    <ProjectReference Include="..\..\src\CqNl.Infrastructure\CqNl.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\CqNl.Application\CqNl.Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\sources\templates\*.xlsx" Link="TestData\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\sources\samples\erp.xlsx;..\..\sources\samples\erp_html.xls;..\..\sources\samples\steel_grades.xlsx;..\..\sources\samples\theo_doi_mau.xlsx" Link="TestData\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\sources\samples\images\*.*" Link="TestData\img\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\sources\signatures\*.*" Link="TestData\sig\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" Condition="Exists('..\..\sources\signatures')" />
+    <None Include="..\..\sources\golden\*.*" Link="TestData\golden\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\config\image-presets\*.json" Link="TestData\presets\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\sources\samples\eng.traineddata" Link="TestData\tessdata\eng.traineddata" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\config\template-maps\*.json" Link="TestData\maps\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
