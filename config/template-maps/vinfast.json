@@ -1,0 +1,263 @@
+{
+ "templateId": "vinfast",
+ "displayName": "Vinfast",
+ "fileName": "vinfast.xlsx",
+ "sheet": "Vinfast",
+ "status": "tách từ CQ-2026.xlsx sheet Vinfast (16/11/2026)",
+ "fields": {
+  "Customer": {
+   "cell": "G6",
+   "label": [
+    "A6",
+    "Khách hàng"
+   ]
+  },
+  "Material": {
+   "cell": "G7",
+   "label": [
+    "A7",
+    "Vật liệu"
+   ]
+  },
+  "Size": {
+   "cell": "R7",
+   "label": [
+    "N7",
+    "Kích thước"
+   ]
+  },
+  "PartNo": {
+   "cell": "G8",
+   "label": [
+    "A8",
+    "Mã QL"
+   ],
+   "unhideRowWhenFilled": 8
+  },
+  "PartName": {
+   "cell": "R8",
+   "label": [
+    "N8",
+    "Tên chi tiết"
+   ],
+   "unhideRowWhenFilled": 8
+  },
+  "Quantity": {
+   "cell": "G9",
+   "label": [
+    "A9",
+    "Số lượng"
+   ],
+   "type": "number"
+  },
+  "WeightKg": {
+   "cell": "R9",
+   "label": [
+    "N9",
+    "Trọng lượng"
+   ],
+   "type": "number"
+  },
+  "ReceivedDate": {
+   "cell": "G10",
+   "label": [
+    "A10",
+    "Ngày nhận"
+   ],
+   "type": "dateText"
+  },
+  "CheckDate": {
+   "cell": "R10",
+   "label": [
+    "N10",
+    "Ngày kiểm"
+   ],
+   "type": "dateText"
+  },
+  "Dngc": {
+   "cell": "G11",
+   "label": [
+    "A11",
+    "Số ĐNGC"
+   ]
+  },
+  "ReportNo": {
+   "cell": "R11",
+   "label": [
+    "N11",
+    "Số báo cáo"
+   ]
+  },
+  "HardnessRequirement": {
+   "cell": "A28",
+   "label": [
+    "A25",
+    "Yêu cầu"
+   ]
+  },
+  "HardnessUnit": {
+   "cell": "D28",
+   "label": [
+    "A24",
+    "ĐỘ CỨNG"
+   ]
+  },
+  "HardnessTolerance": {
+   "cell": "A29",
+   "label": [
+    "A25",
+    "Yêu cầu"
+   ]
+  },
+  "Samples": {
+   "cells": [
+    "H26",
+    "H27",
+    "H28",
+    "H29",
+    "H30",
+    "H31"
+   ],
+   "label": [
+    "G26",
+    1
+   ]
+  },
+  "AppearanceResult": {
+   "cell": "S26",
+   "label": [
+    "N26",
+    "ngoại quan"
+   ]
+  },
+  "CurvatureRequirement": {
+   "cell": "Q28",
+   "label": [
+    "N28",
+    "Độ cong"
+   ]
+  },
+  "CurvatureResult": {
+   "cell": "S28",
+   "label": [
+    "N28",
+    "Độ cong"
+   ]
+  },
+  "OtherResult": {
+   "cell": "S30",
+   "label": [
+    "N30",
+    "Khác"
+   ]
+  },
+  "Remark": {
+   "cell": "A32",
+   "label": [
+    "A24",
+    "ĐỘ CỨNG"
+   ],
+   "keepIfEmptyTemplate": false
+  },
+  "SampleImageFrame": {
+   "range": "B19:K23",
+   "label": [
+    "A18",
+    "ẢNH XUẤT HÀNG"
+   ]
+  },
+  "HardnessImageFrames": {
+   "ranges": [
+    "M19:Q23",
+    "S19:U23"
+   ],
+   "label": [
+    "M18",
+    "ẢNH ĐỘ CỨNG"
+   ],
+   "maxImages": 8
+  },
+  "ApproverSignatureFrame": {
+   "range": "N34:R36",
+   "label": [
+    "N32",
+    "Approved"
+   ],
+   "stamp": true
+  },
+  "CheckerSignatureFrame": {
+   "range": "S34:U36",
+   "label": [
+    "S32",
+    "Checker"
+   ]
+  },
+  "DrawingTemperatures": {
+   "texts": [
+    "1030℃",
+    "650℃",
+    "850℃"
+   ],
+   "order": [
+    2,
+    0,
+    1
+   ],
+   "note": "thứ tự chữ trong hình: 1030, 650, 850 → giá trị tôi 3, 1, 2"
+  },
+  "DrawingRamTexts": {
+   "texts": [
+    "210p",
+    "240p",
+    "210p"
+   ],
+   "source": "SteelGrade.Ram1..3"
+  }
+ },
+ "steelGradeMark": 1,
+ "customerKeyword": "VINFAST",
+ "manual": [
+  {
+   "key": "VfHold1",
+   "group": "Lưu đồ tôi",
+   "label": "Thời gian giữ nhiệt tôi 1",
+   "text": "4H",
+   "occurrence": 1
+  },
+  {
+   "key": "VfHold2",
+   "group": "Lưu đồ tôi",
+   "label": "Thời gian giữ nhiệt tôi 2",
+   "text": "4H",
+   "occurrence": 2
+  },
+  {
+   "key": "VfHold3",
+   "group": "Lưu đồ tôi",
+   "label": "Thời gian giữ nhiệt tôi 3",
+   "text": "2H",
+   "occurrence": 1
+  },
+  {
+   "key": "VfRamT1",
+   "group": "Lưu đồ ram",
+   "label": "Nhiệt độ ram 1",
+   "text": "550℃",
+   "occurrence": 1
+  },
+  {
+   "key": "VfRamT2",
+   "group": "Lưu đồ ram",
+   "label": "Nhiệt độ ram 2",
+   "text": "600℃",
+   "occurrence": 1
+  },
+  {
+   "key": "VfRamT3",
+   "group": "Lưu đồ ram",
+   "label": "Nhiệt độ ram 3",
+   "text": "550℃",
+   "occurrence": 2
+  }
+ ]
+}

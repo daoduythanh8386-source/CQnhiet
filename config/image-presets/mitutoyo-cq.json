@@ -1,0 +1,31 @@
+{
+ "name": "Mitutoyo – ảnh độ cứng CQ",
+ "source": "Ảnh mẫu người dùng ref_mitu_cropped_50.1.jpg (13/11/2026): LCD 474x130 tại (806,408) trong khung 1897x1528",
+ "crop": {
+  "left": 2.0,
+  "right": 2.0,
+  "top": 1.0,
+  "bottom": 2.23
+ },
+ "lcd_aspect_min": 2.8,
+ "lcd_aspect_max": 4.8,
+ "enhance": {
+  "stretch_low_pct": 1.0,
+  "stretch_high_pct": 99.0,
+  "saturation": 1.35,
+  "sharpen_amount": 0.5,
+  "sharpen_sigma": 2.0,
+  "white_balance_strength": 1.0,
+  "target_bgr_ratio": [
+   116.6,
+   130.8,
+   140.0
+  ],
+  "target_mean": 140,
+  "gamma_min": 0.6,
+  "gamma_max": 1.2
+ },
+ "max_width": 1600,
+ "jpeg_quality": 92,
+ "min_scale": 0.75
+}

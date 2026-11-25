@@ -1,0 +1,232 @@
+{
+ "templateId": "nito",
+ "displayName": "Thấm Nitơ",
+ "fileName": "nito.xlsx",
+ "sheet": "THẤM NITO ",
+ "status": "tách từ CQ-2026.xlsx sheet THẤM NITO (16/11/2026)",
+ "fields": {
+  "Customer": {
+   "cell": "G6",
+   "label": [
+    "A6",
+    "Khách hàng"
+   ]
+  },
+  "Material": {
+   "cell": "G7",
+   "label": [
+    "A7",
+    "Vật liệu"
+   ]
+  },
+  "Size": {
+   "cell": "R7",
+   "label": [
+    "N7",
+    "Kích thước"
+   ]
+  },
+  "Quantity": {
+   "cell": "G8",
+   "label": [
+    "A8",
+    "Số lượng"
+   ],
+   "type": "number"
+  },
+  "WeightKg": {
+   "cell": "R8",
+   "label": [
+    "N8",
+    "Trọng lượng"
+   ],
+   "type": "number"
+  },
+  "ReceivedDate": {
+   "cell": "G9",
+   "label": [
+    "A9",
+    "Ngày nhận"
+   ],
+   "type": "dateText"
+  },
+  "CheckDate": {
+   "cell": "R9",
+   "label": [
+    "N9",
+    "Ngày kiểm"
+   ],
+   "type": "dateText"
+  },
+  "Dngc": {
+   "cell": "G10",
+   "label": [
+    "A10",
+    "Số ĐNGC"
+   ]
+  },
+  "ReportNo": {
+   "cell": "R10",
+   "label": [
+    "N10",
+    "Số báo cáo"
+   ]
+  },
+  "AppearanceResult": {
+   "cell": "S26",
+   "label": [
+    "N26",
+    "ngoại quan"
+   ]
+  },
+  "CurvatureRequirement": {
+   "cell": "Q28",
+   "label": [
+    "N28",
+    "Độ cong"
+   ]
+  },
+  "CurvatureResult": {
+   "cell": "S28",
+   "label": [
+    "N28",
+    "Độ cong"
+   ]
+  },
+  "OtherResult": {
+   "cell": "S30",
+   "label": [
+    "N30",
+    "Khác"
+   ]
+  },
+  "Remark": {
+   "cell": "A32",
+   "label": [
+    "A25",
+    "Yêu cầu"
+   ]
+  },
+  "SampleImageFrame": {
+   "range": "R23:U23",
+   "label": [
+    "A12",
+    "LƯU ĐỒ NHIỆT THẤM NITO"
+   ],
+   "padBottomMm": 13
+  },
+  "HardnessImageFrames": {
+   "ranges": [
+    "I23:Q23"
+   ],
+   "label": [
+    "A12",
+    "LƯU ĐỒ NHIỆT THẤM NITO"
+   ],
+   "maxImages": 4,
+   "padBottomMm": 13
+  },
+  "OtherImageFrame": {
+   "range": "A23:H23",
+   "label": [
+    "A12",
+    "LƯU ĐỒ NHIỆT THẤM NITO"
+   ],
+   "maxImages": 2,
+   "padBottomMm": 13
+  },
+  "ApproverSignatureFrame": {
+   "range": "N34:R36",
+   "label": [
+    "N32",
+    "Approved"
+   ],
+   "stamp": true
+  },
+  "CheckerSignatureFrame": {
+   "range": "S34:U36",
+   "label": [
+    "S32",
+    "Checker"
+   ]
+  }
+ },
+ "processKeyword": "THAM NITO",
+ "manual": [
+  {
+   "key": "NitPreTemp",
+   "group": "Lưu đồ nhiệt thấm Nitơ",
+   "label": "Nhiệt độ gia nhiệt sơ bộ",
+   "text": "400℃",
+   "occurrence": 1
+  },
+  {
+   "key": "NitPreTime",
+   "group": "Lưu đồ nhiệt thấm Nitơ",
+   "label": "Thời gian gia nhiệt sơ bộ",
+   "text": "2H",
+   "occurrence": 1
+  },
+  {
+   "key": "NitTemp",
+   "group": "Lưu đồ nhiệt thấm Nitơ",
+   "label": "Nhiệt độ thấm Nitơ",
+   "text": "525℃",
+   "occurrence": 1
+  },
+  {
+   "key": "NitTime",
+   "group": "Lưu đồ nhiệt thấm Nitơ",
+   "label": "Thời gian thấm Nitơ",
+   "text": "20H",
+   "occurrence": 1
+  },
+  {
+   "key": "NitDepthReq",
+   "group": "Yêu cầu / kết quả thấm",
+   "label": "Chiều sâu lớp thấm — yêu cầu",
+   "cell": "A26",
+   "prefix": "1. Chiều sâu lớp thấm: ",
+   "default": ""
+  },
+  {
+   "key": "NitDepthRes",
+   "group": "Yêu cầu / kết quả thấm",
+   "label": "Chiều sâu lớp thấm — kết quả",
+   "cell": "J26",
+   "default": "",
+   "required": true
+  },
+  {
+   "key": "NitCoatReq",
+   "group": "Yêu cầu / kết quả thấm",
+   "label": "Độ dày lớp phủ — yêu cầu",
+   "cell": "A28",
+   "prefix": "2. Độ dày lớp phủ: ",
+   "default": ""
+  },
+  {
+   "key": "NitCoatRes",
+   "group": "Yêu cầu / kết quả thấm",
+   "label": "Độ dày lớp phủ — kết quả",
+   "cell": "J28",
+   "default": ""
+  },
+  {
+   "key": "NitSurfReq",
+   "group": "Yêu cầu / kết quả thấm",
+   "label": "Độ cứng bề mặt — yêu cầu",
+   "cell": "A30",
+   "prefix": "3. Độ cứng bề mặt: ",
+   "default": "≈{HardnessRequirement} {Unit}"
+  },
+  {
+   "key": "NitSurfRes",
+   "group": "Yêu cầu / kết quả thấm",
+   "label": "Độ cứng bề mặt — kết quả",
+   "cell": "J30",
+   "default": "≈{Min}-{Max} {Unit}",
+   "required": true
+  }
+ ]
+}

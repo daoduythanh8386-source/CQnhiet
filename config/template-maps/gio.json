@@ -1,0 +1,201 @@
+{
+ "templateId": "gio",
+ "displayName": "Thép gió",
+ "fileName": "gio.xlsx",
+ "sheet": "THÉP GIÓ(ORI)",
+ "status": "chờ xác nhận mapping (OQ-03,04,07,08)",
+ "fields": {
+  "Customer": {
+   "cell": "G6",
+   "label": [
+    "A6",
+    "Khách hàng"
+   ]
+  },
+  "Material": {
+   "cell": "G7",
+   "label": [
+    "A7",
+    "Vật liệu"
+   ]
+  },
+  "Size": {
+   "cell": "R7",
+   "label": [
+    "N7",
+    "Kích thước"
+   ]
+  },
+  "Quantity": {
+   "cell": "G8",
+   "label": [
+    "A8",
+    "Số lượng"
+   ],
+   "type": "number"
+  },
+  "WeightKg": {
+   "cell": "R8",
+   "label": [
+    "N8",
+    "Trọng lượng"
+   ],
+   "type": "number"
+  },
+  "ReceivedDate": {
+   "cell": "G9",
+   "label": [
+    "A9",
+    "Ngày nhận"
+   ],
+   "type": "dateText"
+  },
+  "CheckDate": {
+   "cell": "R9",
+   "label": [
+    "N9",
+    "Ngày kiểm"
+   ],
+   "type": "dateText"
+  },
+  "Dngc": {
+   "cell": "G10",
+   "label": [
+    "A10",
+    "Số ĐNGC"
+   ]
+  },
+  "ReportNo": {
+   "cell": "R10",
+   "label": [
+    "N10",
+    "Số báo cáo"
+   ]
+  },
+  "HardnessRequirement": {
+   "cell": "A27",
+   "label": [
+    "A24",
+    "Yêu cầu"
+   ]
+  },
+  "HardnessUnit": {
+   "cell": "D27",
+   "label": [
+    "A23",
+    "ĐỘ CỨNG"
+   ]
+  },
+  "HardnessTolerance": {
+   "cell": "A28",
+   "label": [
+    "A24",
+    "Yêu cầu"
+   ]
+  },
+  "Samples": {
+   "cells": [
+    "H25",
+    "H26",
+    "H27",
+    "H28",
+    "H29",
+    "H30"
+   ],
+   "label": [
+    "G25",
+    1
+   ]
+  },
+  "AppearanceResult": {
+   "cell": "S25",
+   "label": [
+    "N25",
+    "ngoại quan"
+   ]
+  },
+  "CurvatureRequirement": {
+   "cell": "Q27",
+   "label": [
+    "N27",
+    "Độ cong"
+   ]
+  },
+  "CurvatureResult": {
+   "cell": "S27",
+   "label": [
+    "N27",
+    "Độ cong"
+   ]
+  },
+  "OtherResult": {
+   "cell": "S29",
+   "label": [
+    "N24",
+    "Yêu cầu"
+   ]
+  },
+  "Remark": {
+   "cell": "A31",
+   "label": [
+    "A23",
+    "ĐỘ CỨNG"
+   ]
+  },
+  "SampleImageFrame": {
+   "range": "A18:L22",
+   "label": [
+    "A17",
+    "ẢNH XUẤT HÀNG"
+   ]
+  },
+  "HardnessImageFrames": {
+   "ranges": [
+    "M18:Q22",
+    "S18:U22"
+   ],
+   "label": [
+    "M17",
+    "ẢNH ĐỘ CỨNG"
+   ],
+   "maxImages": 8
+  },
+  "ApproverSignatureFrame": {
+   "range": "N33:R35",
+   "label": [
+    "N31",
+    "Approved"
+   ],
+   "stamp": true
+  },
+  "CheckerSignatureFrame": {
+   "range": "S33:U35",
+   "label": [
+    "S31",
+    "Checker"
+   ]
+  },
+  "DrawingTemperatures": {
+   "texts": [
+    "650℃",
+    "850℃",
+    "1000℃",
+    "1180℃"
+   ],
+   "note": "OQ-04"
+  },
+  "RamCells": {
+   "cells": [
+    "N16",
+    "R16",
+    "U16"
+   ],
+   "label": [
+    "N16",
+    "180"
+   ],
+   "source": "SteelGrade.Ram1..3"
+  }
+ },
+ "steelGradeMark": 2
+}

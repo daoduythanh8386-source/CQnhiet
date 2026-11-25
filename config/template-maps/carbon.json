@@ -1,0 +1,227 @@
+{
+ "templateId": "carbon",
+ "displayName": "Thép carbon",
+ "fileName": "carbon.xlsx",
+ "sheet": "THÉP CACBON(SHT)",
+ "status": "chờ xác nhận mapping (OQ-03,04,07,08)",
+ "fields": {
+  "Customer": {
+   "cell": "G6",
+   "label": [
+    "A6",
+    "Khách hàng"
+   ]
+  },
+  "Material": {
+   "cell": "G7",
+   "label": [
+    "A7",
+    "Vật liệu"
+   ]
+  },
+  "Size": {
+   "cell": "R7",
+   "label": [
+    "N7",
+    "Kích thước"
+   ]
+  },
+  "PartNo": {
+   "cell": "G8",
+   "label": [
+    "A8",
+    "Mã QL"
+   ],
+   "unhideRowWhenFilled": 8
+  },
+  "PartName": {
+   "cell": "R8",
+   "label": [
+    "N8",
+    "Tên chi tiết"
+   ],
+   "unhideRowWhenFilled": 8
+  },
+  "Quantity": {
+   "cell": "G9",
+   "label": [
+    "A9",
+    "Số lượng"
+   ],
+   "type": "number"
+  },
+  "WeightKg": {
+   "cell": "R9",
+   "label": [
+    "N9",
+    "Trọng lượng"
+   ],
+   "type": "number"
+  },
+  "ReceivedDate": {
+   "cell": "G10",
+   "label": [
+    "A10",
+    "Ngày nhận"
+   ],
+   "type": "dateText"
+  },
+  "CheckDate": {
+   "cell": "R10",
+   "label": [
+    "N10",
+    "Ngày kiểm"
+   ],
+   "type": "dateText"
+  },
+  "Dngc": {
+   "cell": "G11",
+   "label": [
+    "A11",
+    "Số ĐNGC"
+   ]
+  },
+  "ReportNo": {
+   "cell": "R11",
+   "label": [
+    "N11",
+    "Số báo cáo"
+   ]
+  },
+  "HardnessRequirement": {
+   "cell": "A28",
+   "label": [
+    "A25",
+    "Yêu cầu"
+   ]
+  },
+  "HardnessUnit": {
+   "cell": "D28",
+   "label": [
+    "A24",
+    "ĐỘ CỨNG"
+   ]
+  },
+  "HardnessTolerance": {
+   "cell": "A29",
+   "label": [
+    "A25",
+    "Yêu cầu"
+   ]
+  },
+  "Samples": {
+   "cells": [
+    "H26",
+    "H27",
+    "H28",
+    "H29",
+    "H30",
+    "H31"
+   ],
+   "label": [
+    "G26",
+    1
+   ]
+  },
+  "AppearanceResult": {
+   "cell": "S26",
+   "label": [
+    "N26",
+    "ngoại quan"
+   ]
+  },
+  "CurvatureRequirement": {
+   "cell": "Q28",
+   "label": [
+    "N28",
+    "Độ cong"
+   ]
+  },
+  "CurvatureResult": {
+   "cell": "S28",
+   "label": [
+    "N28",
+    "Độ cong"
+   ]
+  },
+  "OtherResult": {
+   "cell": "S30",
+   "label": [
+    "N30",
+    "Khác"
+   ]
+  },
+  "Remark": {
+   "cell": "A32",
+   "label": [
+    "A32",
+    "Nhận xét"
+   ],
+   "keepIfEmptyTemplate": false
+  },
+  "QuenchTemp1": {
+   "cell": "D15",
+   "label": [
+    "D15",
+    "650"
+   ],
+   "source": "SteelGrade.Heat1",
+   "status": "OQ-04"
+  },
+  "QuenchTemp2": {
+   "cell": "H14",
+   "label": [
+    "H14",
+    "850"
+   ],
+   "source": "SteelGrade.Heat2",
+   "status": "OQ-04"
+  },
+  "SampleImageFrame": {
+   "range": "B19:K23",
+   "label": [
+    "A18",
+    "ẢNH XUẤT HÀNG"
+   ]
+  },
+  "HardnessImageFrames": {
+   "ranges": [
+    "M19:Q23",
+    "S19:U23"
+   ],
+   "label": [
+    "M18",
+    "ẢNH ĐỘ CỨNG"
+   ],
+   "maxImages": 8
+  },
+  "ApproverSignatureFrame": {
+   "range": "N34:R36",
+   "label": [
+    "N32",
+    "Approved"
+   ],
+   "stamp": true
+  },
+  "CheckerSignatureFrame": {
+   "range": "S34:U36",
+   "label": [
+    "S32",
+    "Checker"
+   ]
+  },
+  "DrawingTemperatures": {
+   "texts": [],
+   "note": "Ram '180min' trong hình vẽ – không sửa"
+  },
+  "DrawingRamTexts": {
+   "texts": [
+    "180min",
+    "180min",
+    "180min"
+   ],
+   "source": "SteelGrade.Ram1..3"
+  }
+ },
+ "steelGradeMark": 3
+}

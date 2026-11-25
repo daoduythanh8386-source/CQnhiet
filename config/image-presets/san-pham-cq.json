@@ -1,0 +1,37 @@
+{
+ "name": "Ảnh sản phẩm – ẢNH XUẤT HÀNG trên CQ",
+ "mode": "product",
+ "source": "Ảnh mẫu người dùng ref_sanpham_da_chinh.jpg (13/11/2026): cắt đúng (100,305)-(937,1191) của ảnh gốc 961x1280, không co giãn",
+ "detect": {
+  "max_saturation": 90,
+  "min_component_area": 0.0008,
+  "min_components": 3,
+  "margin": {
+   "left": 0.09,
+   "right": 0.12,
+   "top": 0.09,
+   "bottom": 0.08
+  },
+  "area_min": 0.15,
+  "area_max": 0.95
+ },
+ "enhance": {
+  "target_bgr_ratio": [
+   121.4,
+   123.3,
+   128.9
+  ],
+  "white_balance_strength": 1.0,
+  "stretch_low_pct": 3.0,
+  "stretch_high_pct": 99.9,
+  "target_mean": 128,
+  "gamma_min": 0.5,
+  "gamma_max": 1.2,
+  "saturation": 0.75,
+  "sharpen_amount": 0.8,
+  "sharpen_sigma": 1.5,
+  "stretch_white": 225
+ },
+ "max_width": 1600,
+ "jpeg_quality": 92
+}

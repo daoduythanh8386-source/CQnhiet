@@ -1,0 +1,19 @@
+{
+ "name": "Chữ ký – nền giấy A4, làm nét",
+ "source": "Quy ước người dùng 13/11/2026",
+ "paper_bgr": [
+  245,
+  248,
+  250
+ ],
+ "noise_floor": 0.1,
+ "ink_full": 0.32,
+ "ink_gamma": 0.8,
+ "min_speck_px": 40,
+ "ink_darken": 0.72,
+ "sharpen_amount": 0.8,
+ "sharpen_sigma": 1.2,
+ "margin": 0.04,
+ "max_width": 1200,
+ "min_speck_frac": 3e-05
+}
