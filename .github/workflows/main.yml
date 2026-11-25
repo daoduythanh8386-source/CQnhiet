@@ -26,11 +26,11 @@ jobs:
     
     - name: Build EXE
       run: |
-        pyinstaller --onefile --windowed --name=CQnhiet CQnhiet.py
+        pyinstaller --onefile --windowed --name=CQNhietLuyen CQNhietLuyen.py
 
     
     - name: Upload built EXE
       uses: actions/upload-artifact@v4
       with:
-        name: CQnhiet-Windows
+        name: CQNhietLuyen-Windows
         path: dist/*.exe
