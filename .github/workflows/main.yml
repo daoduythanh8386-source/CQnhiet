@@ -1,36 +1,35 @@
-name: Build Python App to EXE
+name: Build CQNhietLuyen (.NET)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  build-exe:
+  build:
+    name: Build Windows app
     runs-on: windows-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pyinstaller
-    
-    - name: Build EXE
-      run: |
-        pyinstaller --onefile --windowed --name=CQNhietLuyen CQNhietLuyen.py
 
-    
-    - name: Upload built EXE
-      uses: actions/upload-artifact@v4
-      with:
-        name: CQNhietLuyen-Windows
-        path: dist/*.exe
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Publish WPF application
+        run: dotnet publish src/CqNl.Wpf/CqNl.Wpf.csproj --configuration Release --runtime win-x64 --self-contained true --output artifacts/CQNhietLuyen
+
+      - name: Upload Windows app
+        uses: actions/upload-artifact@v4
+        with:
+          name: CQNhietLuyen-Windows-x64
+          path: artifacts/CQNhietLuyen/
+          if-no-files-found: error
